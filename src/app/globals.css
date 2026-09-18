@@ -1,26 +1,319 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Agentra design tokens — Monad-style editorial light theme.
+ * Contrast on parchment: off-black 14:1 · graphite 7.6:1 · smoke 4.9:1 · lake-blue 5.5:1 (white on lake-blue 6.1:1)
+ */
+@theme {
+  /* Surfaces */
+  --color-parchment: #f6f3f1;        /* page canvas — never pure white */
+  --color-periwinkle-mist: #cfdaf5;  /* the one colored card surface */
+  --color-off-black: #242424;        /* primary text, black pill buttons, inverted surfaces */
+  --color-ink: #000000;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Text */
+  --color-graphite: #4e4d4d;         /* secondary text */
+  --color-smoke: #6b6968;            /* helper text (darkened from #797776 to pass AA) */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Lines */
+  --color-ash: #cecac8;              /* all 1px hairlines */
+
+  /* The single accent — reserved for the primary action */
+  --color-lake-blue: #2b59d1;
+  --color-lake-blue-deep: #2249b0;
+
+  /* Decorative only — gradient washes and illustrations */
+  --color-sky-blue: #a0b5eb;
+  --color-mint: #a7fccd;
+  --color-coral: #ff9473;
+  --color-gold: #ecda98;
+  --color-crimson: #f37a0a;
+
+  /* Status (errors); darkened for AA on parchment */
+  --color-danger: #b3261e;
+
+  /* Terminal — the one inverted surface. Contrast on term-bg: fg 14.6:1 · muted 6.3:1 · allow 10:1 · warn 10.4:1 · block 7.3:1 */
+  --color-term-bg: #1c1b1a;
+  --color-term-chrome: #242322;
+  --color-term-line: #363431;
+  --color-term-fg: #ece8e4;
+  --color-term-muted: #a29c96;
+  --color-term-allow: #8fdcaf;
+  --color-term-warn: #efcd72;
+  --color-term-block: #ff8f78;
+
+  /* Fonts: sans for UI + body, display for headlines, mono for anything technical */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Type scale */
+  --text-caption: 12px;
+  --text-caption--line-height: 1.2;
+  --text-caption--letter-spacing: -0.01em;
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.35;
+  --text-body-sm--letter-spacing: 0;
+  --text-body: 16px;
+  --text-body--line-height: 1.35;
+  --text-body--letter-spacing: 0;
+  --text-label: 18px;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0;
+  --text-body-lg: 20px;
+  --text-body-lg--line-height: 1.35;
+  --text-body-lg--letter-spacing: 0;
+  --text-subheading: 24px;
+  --text-subheading--line-height: 1.2;
+  --text-subheading--letter-spacing: -0.025em;
+  --text-heading-sm: 32px;
+  --text-heading-sm--line-height: 1.15;
+  --text-heading-sm--letter-spacing: -0.025em;
+  --text-heading: 40px;
+  --text-heading--line-height: 1.05;
+  --text-heading--letter-spacing: -0.025em;
+  --text-heading-lg: 48px;
+  --text-heading-lg--line-height: 1.05;
+  --text-heading-lg--letter-spacing: -0.025em;
+  --text-display: 80px;
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.025em;
+
+  --radius-card: 40px;
+
+  --animate-rise: rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    background-color: var(--color-parchment);
+  }
+
+  body {
+    /* background lives on <html> so the fixed texture layer (z:-1) shows through */
+    color: var(--color-off-black);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    letter-spacing: var(--text-body--letter-spacing);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+  }
+
+  ::selection {
+    background: var(--color-periwinkle-mist);
+    color: var(--color-off-black);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-lake-blue);
+    outline-offset: 3px;
+    border-radius: 9999px;
+  }
+}
+
+@layer components {
+  /* Page texture: very faint paper grain. */
+  .page-texture {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .27 0 0 0 0 .25 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Atmospheric wash behind the hero headline: coral → sky blue, heavily diffused. */
+  .hero-wash {
+    background:
+      radial-gradient(closest-side at 35% 55%, rgb(255 148 115 / 0.55), transparent),
+      radial-gradient(closest-side at 65% 45%, rgb(160 181 235 / 0.7), transparent),
+      radial-gradient(closest-side at 55% 75%, rgb(167 252 205 / 0.35), transparent);
+    filter: blur(60px);
+  }
+
+  /* Hero flow diagram */
+  .flow-petal-bg {
+    fill: #e4f4e6;
+    stroke: #bfe3c6;
+    transition: fill 250ms ease, stroke 250ms ease;
+  }
+  .flow-petal-label {
+    fill: var(--color-graphite);
+    transition: fill 250ms ease;
+  }
+  .flow-petal.is-on .flow-petal-bg {
+    fill: #b9f5cf;
+    stroke: #1f7a4d;
+  }
+  .flow-petal.is-on .flow-petal-label {
+    fill: var(--color-off-black);
+  }
+  .flow-src {
+    color: var(--color-off-black);
+    transition: color 250ms ease;
+  }
+  .flow-src-bg {
+    fill: var(--color-parchment);
+    stroke: rgb(36 36 36 / 0.55);
+    transition: fill 250ms ease;
+  }
+  .flow-src.is-on {
+    color: var(--color-parchment);
+  }
+  .flow-src.is-on .flow-src-bg {
+    fill: var(--color-off-black);
+  }
+  .flow-dec-ring {
+    opacity: 0;
+    transition: opacity 250ms ease;
+  }
+  .flow-dec.is-on .flow-dec-ring {
+    opacity: 1;
+  }
+  .flow-spin {
+    animation: flow-spin 9s linear infinite;
+  }
+  @keyframes flow-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Hub: a slow breathing glow and a lone orbiting ring, always alive between events */
+  .flow-hub-breath {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+    animation: flow-breath 3.8s ease-in-out infinite;
+  }
+  @keyframes flow-breath {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(1.06); }
+  }
+  .flow-orbit-ring {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+    stroke-dasharray: 1 9;
+  }
+
+  /* Module diamonds: a light lift when a step is checking them */
+  .flow-petal {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+    transition: transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .flow-petal.is-on {
+    transform: scale(1.09);
+  }
+
+  /* The travelling spark gets a soft glow twin riding just behind it */
+  .flow-spark-glow {
+    filter: blur(3px);
+  }
+
+  /* Decision ripple: one ring expands out from a pill the moment it fires */
+  .flow-ripple {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flow-hub-breath,
+    .flow-orbit-ring {
+      animation: none;
+    }
+  }
+
+  /* Module bento: connector lines with a slow downward-moving dash */
+  .flow-dash {
+    background-image: linear-gradient(to bottom, rgb(75 85 99 / 0.55) 55%, transparent 55%);
+    background-size: 1px 8px;
+    animation: flow-dash 1.2s linear infinite;
+  }
+  @keyframes flow-dash {
+    to { background-position: 0 8px; }
+  }
+  /* Memory firewall: entries nudge toward the shield; a scan line sweeps it */
+  .memory-in {
+    animation: memory-in 2.4s ease-in-out infinite;
+  }
+  @keyframes memory-in {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(6px); }
+  }
+  .fw-scan {
+    animation: fw-scan 2.6s ease-in-out infinite;
+  }
+  @keyframes fw-scan {
+    0% { transform: translateY(6px); opacity: 0; }
+    15% { opacity: 0.9; }
+    85% { opacity: 0.9; }
+    100% { transform: translateY(136px); opacity: 0; }
+  }
+
+  /* Agent marquee */
+  .marquee-track {
+    animation: marquee 38s linear infinite;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  /* Terminal cursor */
+  .terminal-cursor {
+    animation: blink 1.05s steps(1) infinite;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* Fade-and-rise on scroll. Pure CSS (scroll-driven); browsers without support just show content. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        animation: rise linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 45%;
+      }
+    }
+  }
+
+  /* Hairline hover: border darkens from ash to off-black. No shadows. */
+  .hairline-hover {
+    transition: border-color 200ms ease, background-color 200ms ease, color 200ms ease;
+  }
+  .hairline-hover:hover,
+  .hairline-hover:focus-within {
+    border-color: var(--color-off-black);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
