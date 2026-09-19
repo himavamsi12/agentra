@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 
-/* ——— shared bits ——— */
+/* --- shared bits --- */
 
-function IconCircle({ children }: { children: ReactNode }) {
+export function IconCircle({ children }: { children: ReactNode }) {
   return (
     <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-ash bg-parchment text-graphite">
       <svg viewBox="0 0 20 20" className="size-[18px]" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -12,7 +12,7 @@ function IconCircle({ children }: { children: ReactNode }) {
   );
 }
 
-function Tag({ children, tone = "neutral" }: { children: ReactNode; tone?: "neutral" | "warn" | "block" | "allow" }) {
+export function Tag({ children, tone = "neutral" }: { children: ReactNode; tone?: "neutral" | "warn" | "block" | "allow" }) {
   const tones = {
     neutral: "border-ash bg-parchment text-graphite",
     allow: "border-[#1f7a4d]/30 bg-[#e2f5e8] text-[#1f7a4d]",
@@ -23,7 +23,7 @@ function Tag({ children, tone = "neutral" }: { children: ReactNode; tone?: "neut
 }
 
 /** Monad-style connector pill (uses the quarantine ink, keeping Lake Blue reserved for the CTA). */
-function Link({ children }: { children: ReactNode }) {
+export function Link({ children }: { children: ReactNode }) {
   return (
     <span className="relative z-10 inline-flex items-center gap-1.5 rounded-md border border-[#34427a]/35 bg-[#eef2fc] px-2 py-0.5 font-mono text-[11.5px] text-[#34427a]">
       <svg viewBox="0 0 16 16" className="size-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
@@ -60,7 +60,7 @@ function NodeCard({ icon, title, tag, tone, compact, className = "" }: { icon: R
   );
 }
 
-/* ——— 1. Coding Agent Security: event chain ——— */
+/* --- 1. Coding Agent Security: event chain --- */
 
 export function ChainIllustration() {
   return (
@@ -117,7 +117,7 @@ export function ChainIllustration() {
   );
 }
 
-/* ——— 2. Runtime Security: policy rules ——— */
+/* --- 2. Runtime Security: policy rules --- */
 
 function RuleRow({ n, children, decision, faded }: { n: number; children: ReactNode; decision: "ask" | "block" | "allow"; faded?: boolean }) {
   const tone = decision === "block" ? "block" : decision === "ask" ? "warn" : "allow";
@@ -172,7 +172,7 @@ export function RulesIllustration() {
   );
 }
 
-/* ——— 3. MCP Scanner: server cards ——— */
+/* --- 3. MCP Scanner: server cards --- */
 
 function ServerCard({
   name,
@@ -242,7 +242,7 @@ export function ScannerIllustration() {
   );
 }
 
-/* ——— 4. Memory Firewall: shield filter ——— */
+/* --- 4. Memory Firewall: shield filter --- */
 
 export function FirewallIllustration() {
   return (

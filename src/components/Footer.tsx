@@ -2,7 +2,6 @@ import { site } from "@/lib/site";
 import { LogoMark, PixelHeart } from "./icons";
 
 const LINKS = [
-  { label: "GitHub", href: site.github, external: true },
   { label: "X", href: site.x, external: true },
   { label: "Early access", href: "#early-access", external: false },
 ];
@@ -16,9 +15,9 @@ export function Footer() {
             href="#top"
             className="inline-flex items-center gap-2 rounded-full font-mono text-label font-medium lowercase text-off-black"
           >
-            <LogoMark className="size-5" />
+            <LogoMark className="size-8" />
             {site.name}
-            <span className="sr-only"> — back to top</span>
+            <span className="sr-only"> - back to top</span>
           </a>
           <p className="mt-4 text-body text-graphite">{site.tagline}</p>
         </div>

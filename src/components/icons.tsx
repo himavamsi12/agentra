@@ -1,19 +1,23 @@
-import type { SVGProps } from "react";
+import { useId, type SVGProps } from "react";
 
 type IconProps = SVGProps<SVGSVGElement>;
-
-export function GitHubIcon(props: IconProps) {
-  return (
-    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" {...props}>
-      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-    </svg>
-  );
-}
 
 export function ArrowRightIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
       <path d="M3 8h10M9 4l4 4-4 4" />
+    </svg>
+  );
+}
+
+export function RocketIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+      <path d="M8 1.6c1.9 1.1 3 3.1 3 5.7 0 1.6-.5 3-1.3 4.1L8 13.2l-1.7-1.8C5.5 10.3 5 8.9 5 7.3c0-2.6 1.1-4.6 3-5.7Z" />
+      <circle cx="8" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
+      <path d="M5.6 9.4 4 10.4c-.3.5-.4 1.3-.4 1.9.6 0 1.4-.1 1.9-.4l1-1.6" />
+      <path d="M10.4 9.4 12 10.4c.3.5.4 1.3.4 1.9-.6 0-1.4-.1-1.9-.4l-1-1.6" />
+      <path d="M6.8 13.2 6.4 15M9.2 13.2l.4 1.8" />
     </svg>
   );
 }
@@ -26,12 +30,85 @@ export function CheckIcon(props: IconProps) {
   );
 }
 
-/** Shield-with-bracket mark used in the favicon and nav. */
+/** Brand mark: a hooded "A" monogram with a shielded, star-lit center. Used in the nav and footer. */
 export function LogoMark(props: IconProps) {
+  const uid = useId();
+  const hood = `logo-hood-${uid}`;
+  const legl = `logo-legl-${uid}`;
+  const legr = `logo-legr-${uid}`;
+  const highlight = `logo-hl-${uid}`;
+  const star = `logo-star-${uid}`;
+  const blur = `logo-blur-${uid}`;
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-      <path d="M12 2.5l8 3v6.2c0 4.7-3.3 8.4-8 9.8-4.7-1.4-8-5.1-8-9.8V5.5l8-3z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M9.5 9.5L7.5 12l2 2.5M14.5 9.5l2 2.5-2 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg viewBox="60 80 690 580" aria-hidden="true" {...props}>
+      <defs>
+        <linearGradient id={hood} gradientUnits="userSpaceOnUse" x1="330" y1="190" x2="560" y2="358">
+          <stop offset="0" stopColor="#d8eef9" />
+          <stop offset="0.18" stopColor="#b8d1f6" />
+          <stop offset="0.4" stopColor="#8cadef" />
+          <stop offset="0.62" stopColor="#95bbed" />
+          <stop offset="0.82" stopColor="#a6d8f1" />
+          <stop offset="1" stopColor="#baeff8" />
+        </linearGradient>
+        <linearGradient id={legl} gradientUnits="userSpaceOnUse" x1="170" y1="470" x2="290" y2="630">
+          <stop offset="0" stopColor="#3f5ca8" />
+          <stop offset="0.5" stopColor="#4d72c6" />
+          <stop offset="0.85" stopColor="#6f97ee" />
+          <stop offset="1" stopColor="#93b6f3" />
+        </linearGradient>
+        <linearGradient id={legr} gradientUnits="userSpaceOnUse" x1="545" y1="615" x2="700" y2="545">
+          <stop offset="0" stopColor="#7a8cf0" />
+          <stop offset="0.5" stopColor="#5563cf" />
+          <stop offset="1" stopColor="#3e47aa" />
+        </linearGradient>
+        <linearGradient id={highlight} gradientUnits="userSpaceOnUse" x1="650" y1="462" x2="640" y2="515">
+          <stop offset="0" stopColor="#9a96f5" stopOpacity="0.9" />
+          <stop offset="1" stopColor="#9a96f5" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id={star} x1="0.75" y1="0" x2="0.25" y2="1">
+          <stop offset="0" stopColor="#e6f8fc" />
+          <stop offset="0.45" stopColor="#96d8f5" />
+          <stop offset="1" stopColor="#7ba0ec" />
+        </linearGradient>
+        <filter id={blur} x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="7" />
+        </filter>
+      </defs>
+      <path d="M 188 420 L 290 390 L 290 455 C 290 479 296.7 502.2 311.6 523.8 L 252 628 Q 249 633 243 633 L 98 633 Q 82 633 88 621 Z" fill={`url(#${legl})`} />
+      <path d="M 632 430 L 532 390 L 532 455 C 532 479 525.3 502.2 510.4 523.8 L 570 628 Q 573 633 579 633 L 718 633 Q 732 633 724 621 Z" fill={`url(#${legr})`} />
+      <path d="M 532 398 C 587 400 632 440 665 494 L 677 520 L 516 520 L 532 455 Z" fill={`url(#${highlight})`} />
+      <path
+        d="M 148 500 L 338 125 Q 345 112 362 112 L 461 112 Q 478 112 485 125 L 665 494 C 632 440 587 400 532 398 L 434 362 Q 411 350 388 362 L 290 398 C 235 400 185 440 148 500 Z"
+        fill="#1e2f6e"
+        opacity="0.6"
+        transform="translate(0 5)"
+      />
+      <path
+        d="M 148 500 L 338 125 Q 345 112 362 112 L 461 112 Q 478 112 485 125 L 665 494 C 632 440 587 400 532 398 L 434 362 Q 411 350 388 362 L 290 398 C 235 400 185 440 148 500 Z"
+        fill={`url(#${hood})`}
+      />
+      <path
+        d="M 290 398 L 388 362 Q 411 350 434 362 L 532 398 L 532 455 C 532 515 490 570 411 608 C 332 570 290 515 290 455 Z"
+        fill="none"
+        stroke="#3f6be8"
+        strokeWidth="12"
+        opacity="0.7"
+        filter={`url(#${blur})`}
+      />
+      <path
+        d="M 290 398 L 388 362 Q 411 350 434 362 L 532 398 L 532 455 C 532 515 490 570 411 608 C 332 570 290 515 290 455 Z"
+        fill="#0c111c"
+        stroke="#6f8fea"
+        strokeWidth="2.5"
+        strokeOpacity="0.85"
+      />
+      <path
+        d="M 411 398 Q 418 468 476 475 Q 418 482 411 550 Q 404 482 346 475 Q 404 468 411 398 Z"
+        fill="#7fc8ff"
+        opacity="0.7"
+        filter={`url(#${blur})`}
+      />
+      <path d="M 411 398 Q 418 468 476 475 Q 418 482 411 550 Q 404 482 346 475 Q 404 468 411 398 Z" fill={`url(#${star})`} />
     </svg>
   );
 }

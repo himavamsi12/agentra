@@ -1,7 +1,7 @@
 const POINTS = [
   {
     phrase: "Every file.",
-    body: "Agents read the whole repository to build context — including the .env you forgot was in it.",
+    body: "Agents read the whole repository to build context, including the .env you forgot was in it.",
   },
   {
     phrase: "Any command.",

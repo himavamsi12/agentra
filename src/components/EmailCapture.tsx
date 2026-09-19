@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useState, type FormEvent } from "react";
-import { CheckIcon } from "./icons";
+import { CheckIcon, RocketIcon } from "./icons";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -22,7 +22,7 @@ export function EmailCapture({ source }: { source: "hero" | "footer-cta" }) {
       setStatus("error");
       return;
     }
-    // No backend yet — the form is intentionally inert.
+    // No backend yet: the form is intentionally inert.
     console.log("[agentra] early-access signup", { email: value, source });
     setStatus("success");
   }
@@ -75,12 +75,7 @@ export function EmailCapture({ source }: { source: "hero" | "footer-cta" }) {
             >
               <span className="hidden min-[380px]:inline">Get early access</span>
               <span className="min-[380px]:hidden">Join</span>
-              <span
-                aria-hidden="true"
-                className="transition-transform duration-200 group-hover:translate-x-0.5"
-              >
-                ▸
-              </span>
+              <RocketIcon className="size-3.5 shrink-0 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:rotate-12" />
             </button>
           </div>
         </form>

@@ -15,9 +15,9 @@ import {
 
 /*
  * One event at a time, told in three beats:
- *   1. ACTION   — the source pill turns black, its action tag appears, a line traces into the hub
- *   2. CHECK    — the modules doing the work light up
- *   3. DECISION — a line in the decision colour traces out; the decision pill pulses
+ *   1. ACTION: the source pill turns black, its action tag appears, a line traces into the hub
+ *   2. CHECK: the modules doing the work light up
+ *   3. DECISION: a line in the decision colour traces out; the decision pill pulses
  */
 const T_SOURCE = 600;
 const T_IN = 1400;
@@ -73,7 +73,7 @@ export function FlowDiagram({ variant }: { variant: "wide" | "tall" }) {
     inTraces.forEach((p, i) => (p.style.strokeDasharray = `${inLen[i]} ${inLen[i]}`));
     outTraces.forEach((p, i) => (p.style.strokeDasharray = `${outLen[i]} ${outLen[i]}`));
 
-    // every idle rail gets small, soft-coloured dots that travel and fade along it —
+    // every idle rail gets small, soft-coloured dots that travel and fade along it,
     // driven directly here (not CSS) so it never silently stalls. Reuses the same path
     // geometry as the active trace lines, just travelling continuously either way.
     const DOTS_PER_PATH = 2;
@@ -89,13 +89,13 @@ export function FlowDiagram({ variant }: { variant: "wide" | "tall" }) {
       const color = DECISION_COLORS[e.decision].ink;
       const fade = local >= P_FADE ? 1 - clamp01((local - P_FADE) / T_FADE) : 1;
 
-      // 1 — source + action tag
+      // 1: source + action tag
       sources.forEach((g, i) => g.classList.toggle("is-on", i === si && local < P_FADE));
       tags.forEach((g, i) => (g.style.opacity = String(i === ei ? clamp01(local / 250) * fade : 0)));
 
-      // idle rails: small soft-coloured dots travel and fade along every path, always —
+      // idle rails: small soft-coloured dots travel and fade along every path, always,
       // independent of which event is active, driven by wall-clock time so it never pauses
-      const DOT_SPEED = 6000; // ms for one full pass along a path — a calm, ambient pace
+      const DOT_SPEED = 6000; // ms for one full pass along a path: a calm, ambient pace
       const FADE_SPAN = 0.18; // fraction of the path spent fading in / out at each end
       idleDotsIn.forEach((c, idx) => {
         const pathIdx = Math.floor(idx / DOTS_PER_PATH);
@@ -116,7 +116,7 @@ export function FlowDiagram({ variant }: { variant: "wide" | "tall" }) {
         c.style.opacity = String(Math.min(clamp01(prog / FADE_SPAN), clamp01((1 - prog) / FADE_SPAN)) * 0.32);
       });
 
-      // traces: draw progressively, then hold, then fade together — one colour for the
+      // traces: draw progressively, then hold, then fade together: one colour for the
       // whole journey (source → hub → decision) so the outcome reads at a glance
       const inP = ease(clamp01((local - P_IN) / T_IN));
       const outP = ease(clamp01((local - P_OUT) / T_OUT));
@@ -149,7 +149,7 @@ export function FlowDiagram({ variant }: { variant: "wide" | "tall" }) {
         dot.style.opacity = "0";
       }
 
-      // 2 — hub check: light the modules doing the work, and spell it out in plain words
+      // 2: hub check: light the modules doing the work, and spell it out in plain words
       // above the hub so the diagram narrates itself without needing the readout below
       const checking = local >= P_HUB - 100 && local < P_FADE;
       MODULES.forEach((m) => petals[m.id].classList.toggle("is-on", checking && e.modules.includes(m.id)));
@@ -159,7 +159,7 @@ export function FlowDiagram({ variant }: { variant: "wide" | "tall" }) {
       checkLabel.style.opacity = String(checking ? clamp01((local - (P_HUB - 100)) / 250) * fade : 0);
       checkLabel.textContent = `AGENTRA CHECKS · ${e.modules.map((m) => MODULE_LABEL[m].toUpperCase()).join(" + ")}`;
 
-      // 3 — decision pill, with a ring that ripples outward the instant it fires
+      // 3: decision pill, with a ring that ripples outward the instant it fires
       decisions.forEach((g, i) => g.classList.toggle("is-on", i === di && local >= P_HOLD - 120 && local < P_FADE + T_FADE * 0.5));
       const rippleP = clamp01((local - (P_HOLD - 120)) / 700);
       ripples.forEach((r, i) => {
@@ -225,7 +225,7 @@ export function FlowDiagram({ variant }: { variant: "wide" | "tall" }) {
           style={{ letterSpacing: 0 }}
         >
           <title id={`flow-title-${variant}`}>
-            Each agent action — file reads, shell commands, network calls, MCP tool calls, memory writes and git operations —
+            Each agent action (file reads, shell commands, network calls, MCP tool calls, memory writes and git operations)
             is checked by Agentra&rsquo;s timeline, policy, MCP scanner and memory firewall, and resolved as allow, ask, block or
             quarantine.
           </title>
@@ -251,7 +251,7 @@ export function FlowDiagram({ variant }: { variant: "wide" | "tall" }) {
             strokeWidth="1.25"
           />
 
-          {/* idle rails — a faint guide line on every path, plus small soft-coloured dots
+          {/* idle rails: a faint guide line on every path, plus small soft-coloured dots
               that travel and fade along it, so the whole circuit reads as live; the
               active path's solid line draws on top of it */}
           <g fill="none" stroke="var(--color-ash)" strokeWidth="1.25" opacity="0.55">
@@ -470,7 +470,7 @@ function Readout({ variant, event, stage }: { variant: "wide" | "tall"; event: n
                 <span className={`size-1.5 rounded-full transition-colors duration-300 ${active ? "bg-off-black" : "bg-ash"}`} />
                 {cell.n} · {cell.label}
               </span>
-              <span className="flex min-w-0">{active ? cell.body : <span className="text-smoke">—</span>}</span>
+              <span className="flex min-w-0">{active ? cell.body : <span className="text-smoke">-</span>}</span>
             </li>
           );
         })}

@@ -33,7 +33,7 @@ export function Hero() {
 
         <p className="animate-rise mt-7 max-w-[40rem] text-pretty text-body text-graphite [animation-delay:160ms] sm:text-body-lg">
           A local-first security layer that shows you every file, command, and network call
-          your coding agent makes&nbsp;&mdash; and stops the ones it shouldn&rsquo;t.
+          your coding agent makes, and stops the ones it shouldn&rsquo;t.
         </p>
 
         <div className="animate-rise mt-10 flex w-full justify-center [animation-delay:240ms]">
@@ -41,14 +41,9 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="animate-rise mx-auto mt-10 max-w-[1320px] [animation-delay:400ms] sm:mt-14">
-        {/* The diagram reserves its own aspect-ratio box and fixed-height readout — no layout shift. */}
-        <div className="hidden w-full md:block">
-          <FlowDiagram variant="wide" />
-        </div>
-        <div className="mx-auto w-full max-w-[400px] md:hidden">
-          <FlowDiagram variant="tall" />
-        </div>
+      <div className="animate-rise mx-auto mt-10 w-full max-w-[1320px] [animation-delay:400ms] sm:mt-14">
+        {/* Same horizontal layout at every width: the SVG scales to fit, so it never overflows the viewport. */}
+        <FlowDiagram variant="wide" />
       </div>
     </section>
   );

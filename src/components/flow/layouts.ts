@@ -35,7 +35,7 @@ export const DECISION_COLORS: Record<Decision, { ink: string; fill: string }> = 
   quarantine: { ink: "#34427a", fill: "#dde5f8" },
 };
 
-/** Scripted agent activity — played one event at a time, forever. */
+/** Scripted agent activity: played one event at a time, forever. */
 export const EVENTS: {
   source: SourceId;
   label: string;

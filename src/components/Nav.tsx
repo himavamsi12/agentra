@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { site } from "@/lib/site";
-import { GitHubIcon, LogoMark } from "./icons";
+import { LogoMark } from "./icons";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -30,22 +29,12 @@ export function Nav() {
           href="#top"
           className="flex items-center gap-2 rounded-full font-mono text-label font-medium lowercase text-off-black"
         >
-          <LogoMark className="size-5" />
+          <LogoMark className="size-8" />
           agentra
-          <span className="sr-only"> — home</span>
+          <span className="sr-only"> - home</span>
         </a>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <a
-            href={site.github}
-            target="_blank"
-            rel="noreferrer"
-            className="hairline-hover inline-flex size-10 items-center justify-center rounded-full border border-ash text-off-black sm:h-11 sm:w-auto sm:gap-2 sm:px-5"
-          >
-            <GitHubIcon className="size-[18px]" />
-            <span className="hidden text-body-sm uppercase sm:inline">GitHub</span>
-            <span className="sr-only">Agentra on GitHub (opens in a new tab)</span>
-          </a>
           <a
             href="#early-access"
             className="inline-flex h-10 items-center rounded-full bg-off-black px-4 text-caption uppercase text-parchment transition-colors hover:bg-ink sm:h-11 sm:px-6 sm:text-body-sm"

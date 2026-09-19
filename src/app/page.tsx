@@ -1,4 +1,5 @@
 import { AgentMarquee } from "@/components/AgentMarquee";
+import { Capabilities } from "@/components/Capabilities";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/modules/HowItWorks";
@@ -20,6 +21,7 @@ export default function Home() {
         <Hero />
         <AgentMarquee />
         <HowItWorks />
+        <Capabilities />
         <Problem />
         <TerminalSection />
       </main>

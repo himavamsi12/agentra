@@ -176,7 +176,7 @@ export function AgentTerminal() {
           <span className="size-2.5 rounded-full bg-[#4a4745]" />
         </div>
         <p className="min-w-0 flex-1 truncate text-center text-[11.5px] text-term-muted sm:text-[12.5px]">
-          agentra — claude-code<span className="hidden sm:inline"> · ~/work/checkout-api</span>
+          agentra · claude-code<span className="hidden sm:inline"> · ~/work/checkout-api</span>
         </p>
         <div className="flex items-center gap-2">
           {done ? (

@@ -34,7 +34,7 @@ export function HowItWorks() {
             <CardText
               label="Module 01"
               title="Coding Agent Security"
-              body="A live timeline of every file read, command run, and network call — with attack-chain detection that connects events a single log line would miss."
+              body="A live timeline of every file read, command run, and network call, with attack-chain detection that connects events a single log line would miss."
               icon={<><rect x="4" y="7" width="24" height="18" rx="3" /><path d="M9 13l3 3-3 3M15 19h7" /></>}
             />
             <div className="isolate flex flex-1 items-center justify-center pt-6">
@@ -47,7 +47,7 @@ export function HowItWorks() {
             <CardText
               label="Module 02"
               title="Runtime Security"
-              body="Deterministic allow / ask / block policies. Rules decide what’s permitted — not an LLM that can be talked out of it."
+              body="Deterministic allow / ask / block policies. Rules decide what’s permitted, not an LLM that can be talked out of it."
               icon={<><path d="M8 5v22M8 11h10a4 4 0 0 1 4 4v0a4 4 0 0 0 4 4" /><circle cx="8" cy="5" r="2" /><circle cx="26" cy="21" r="2" /><circle cx="8" cy="27" r="2" /></>}
             />
             <div className="isolate flex justify-center py-2">
