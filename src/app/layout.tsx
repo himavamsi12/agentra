@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
-import { LogoIntro } from "@/components/LogoIntro";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -47,15 +46,13 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    // suppressHydrationWarning: LogoIntro's pre-hydration script may set data-intro-seen on <html>.
-    <html lang="en" id="top" suppressHydrationWarning className={`${sans.variable} ${mono.variable} antialiased`}>
+    <html lang="en" id="top" className={`${sans.variable} ${mono.variable} antialiased`}>
       <head>
         <link rel="preconnect" href="https://api.fontshare.com" />
         <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
       </head>
       <body className="min-h-dvh">
         <div aria-hidden="true" className="page-texture" />
-        <LogoIntro />
         {children}
       </body>
     </html>
