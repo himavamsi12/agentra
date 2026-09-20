@@ -5,27 +5,49 @@ import { CheckIcon, RocketIcon } from "./icons";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-type Status = "idle" | "error" | "success";
+type Status = "idle" | "submitting" | "error" | "success";
 
 export function EmailCapture({ source }: { source: "hero" | "footer-cta" }) {
   const id = useId();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("Enter a valid email address");
 
   const inputId = `${id}-email`;
   const msgId = `${id}-msg`;
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (status === "submitting") return;
+
     const value = email.trim();
     if (!EMAIL_RE.test(value)) {
+      setError("Enter a valid email address");
       setStatus("error");
       return;
     }
-    // No backend yet: the form is intentionally inert.
-    console.log("[agentra] early-access signup", { email: value, source });
-    setStatus("success");
+
+    setStatus("submitting");
+    try {
+      const res = await fetch("/api/early-access", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: value, source }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        setError(data?.error ?? "Something went wrong. Try again.");
+        setStatus("error");
+        return;
+      }
+      setStatus("success");
+    } catch {
+      setError("Network error. Try again.");
+      setStatus("error");
+    }
   }
+
+  const pending = status === "submitting";
 
   return (
     <div className="w-full max-w-lg">
@@ -61,20 +83,24 @@ export function EmailCapture({ source }: { source: "hero" | "footer-cta" }) {
               spellCheck={false}
               placeholder="you@company.dev"
               value={email}
+              disabled={pending}
               onChange={(e) => {
                 setEmail(e.target.value);
                 if (status === "error") setStatus("idle");
               }}
               aria-invalid={status === "error"}
               aria-describedby={msgId}
-              className="min-w-0 flex-1 bg-transparent text-body text-off-black placeholder:text-smoke focus:outline-none"
+              className="min-w-0 flex-1 bg-transparent text-body text-off-black placeholder:text-smoke focus:outline-none disabled:opacity-60"
             />
             <button
               type="submit"
-              className="group inline-flex h-full shrink-0 items-center gap-2 rounded-full bg-lake-blue px-4 text-caption uppercase text-white transition-colors hover:bg-lake-blue-deep focus-visible:outline-offset-2 sm:px-6 sm:text-body-sm"
+              disabled={pending}
+              className="group inline-flex h-full shrink-0 items-center gap-2 rounded-full bg-lake-blue px-4 text-caption uppercase text-white transition-colors hover:bg-lake-blue-deep focus-visible:outline-offset-2 disabled:opacity-70 sm:px-6 sm:text-body-sm"
             >
-              <span className="hidden min-[380px]:inline">Get early access</span>
-              <span className="min-[380px]:hidden">Join</span>
+              <span className="hidden min-[380px]:inline">
+                {pending ? "Joining" : "Get early access"}
+              </span>
+              <span className="min-[380px]:hidden">{pending ? "..." : "Join"}</span>
               <RocketIcon className="size-3.5 shrink-0 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:rotate-12" />
             </button>
           </div>
@@ -88,7 +114,7 @@ export function EmailCapture({ source }: { source: "hero" | "footer-cta" }) {
         className={`mt-3 h-4 font-mono text-caption uppercase ${status === "error" ? "text-danger" : "text-smoke"}`}
       >
         {status === "error"
-          ? "Enter a valid email address"
+          ? error
           : status === "success"
             ? ""
             : "No spam · one email when the beta opens"}
