@@ -1,1 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="16" fill="#f6f3f1"/><path d="M16 5l9 3.4v7c0 5.3-3.7 9.4-9 11-5.3-1.6-9-5.7-9-11v-7L16 5z" fill="none" stroke="#242424" stroke-width="1.8" stroke-linejoin="round"/><path d="M13.2 12.8L11 15.6l2.2 2.8M18.8 12.8l2.2 2.8-2.2 2.8" fill="none" stroke="#2b59d1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="7" fill="#242424"/>
+  <g transform="translate(4 5.913) scale(0.034783) translate(-60 -80)">
+    <path d="M 188 420 L 290 390 L 290 455 C 290 479 296.7 502.2 311.6 523.8 L 252 628 Q 249 633 243 633 L 98 633 Q 82 633 88 621 Z" fill="#4d72c6"/>
+    <path d="M 632 430 L 532 390 L 532 455 C 532 479 525.3 502.2 510.4 523.8 L 570 628 Q 573 633 579 633 L 718 633 Q 732 633 724 621 Z" fill="#3e47aa"/>
+    <path d="M 148 500 L 338 125 Q 345 112 362 112 L 461 112 Q 478 112 485 125 L 665 494 C 632 440 587 400 532 398 L 434 362 Q 411 350 388 362 L 290 398 C 235 400 185 440 148 500 Z" fill="#b8d1f6"/>
+    <path d="M 290 398 L 388 362 Q 411 350 434 362 L 532 398 L 532 455 C 532 515 490 570 411 608 C 332 570 290 515 290 455 Z" fill="#0c111c"/>
+    <path d="M 411 398 Q 418 468 476 475 Q 418 482 411 550 Q 404 482 346 475 Q 404 468 411 398 Z" fill="#7fc8ff"/>
+  </g>
+</svg>
