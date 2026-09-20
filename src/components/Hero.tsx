@@ -24,7 +24,7 @@ export function Hero() {
           />
           <h1
             id="hero-heading"
-            className="animate-rise text-balance text-[2.75rem] leading-[1.02] tracking-[-0.025em] text-off-black [animation-delay:80ms] sm:text-[4rem] md:text-display"
+            className="animate-rise text-balance text-[2.75rem] font-medium leading-[1.02] tracking-[-0.025em] text-off-black [animation-delay:80ms] sm:text-[4rem] md:text-display"
           >
             Give AI agents autonomy.
             <span className="block text-graphite">Not unrestricted access.</span>
